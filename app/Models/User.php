@@ -52,4 +52,14 @@ class User extends Authenticatable
     {
         return $this->belongsTo(Role::class);
     }
+
+    public function sekolah()
+    {
+        return $this->hasOne(Sekolah::class);
+    }
+
+    public function sppg()
+    {
+        return $this->hasOne(Sppg::class);
+    }
 }

@@ -15,6 +15,21 @@
                     <x-nav-link :href="route('dashboard')" :active="request()->routeIs('dashboard')">
                         {{ __('Dashboard') }}
                     </x-nav-link>
+                    @hasanyrole('Admin|Operator BGN')
+                        <x-nav-link :href="route('users.index')" :active="request()->routeIs('users.index')">
+                            {{ __('Users') }}
+                        </x-nav-link>
+                    @endhasanyrole
+                    @hasrole('Operator Sekolah')
+                        <x-nav-link :href="route('sekolah.edit')" :active="request()->routeIs('sekolah.edit')">
+                            {{ __('Data Sekolah') }}
+                        </x-nav-link>
+                    @endhasrole
+                    @hasrole('Operator SPPG')
+                        <x-nav-link :href="route('sppg.edit')" :active="request()->routeIs('sppg.edit')">
+                            {{ __('Data Dapur') }}
+                        </x-nav-link>
+                    @endhasrole
                 </div>
             </div>
 
@@ -70,6 +85,21 @@
             <x-responsive-nav-link :href="route('dashboard')" :active="request()->routeIs('dashboard')">
                 {{ __('Dashboard') }}
             </x-responsive-nav-link>
+            @hasanyrole('Admin|Operator BGN')
+                <x-responsive-nav-link :href="route('users.index')" :active="request()->routeIs('users.index')">
+                    {{ __('Users') }}
+                </x-responsive-nav-link>
+            @endhasanyrole
+            @hasrole('Operator Sekolah')
+                <x-responsive-nav-link :href="route('sekolah.edit')" :active="request()->routeIs('sekolah.edit')">
+                    {{ __('Data Sekolah') }}
+                </x-responsive-nav-link>
+            @endhasrole
+            @hasrole('Operator SPPG')
+                <x-responsive-nav-link :href="route('sppg.edit')" :active="request()->routeIs('sppg.edit')">
+                    {{ __('Data Dapur') }}
+                </x-responsive-nav-link>
+            @endhasrole
         </div>
 
         <!-- Responsive Settings Options -->

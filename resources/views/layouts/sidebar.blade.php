@@ -46,6 +46,13 @@
                     </a>
                 </li>
                 
+                <li class="sidebar-item {{ request()->routeIs('users.*') ? 'active' : '' }}">
+                    <a href="{{ route('users.index') }}" class='sidebar-link'>
+                        <i class="fas fa-users"></i>
+                        <span>Users</span>
+                    </a>
+                </li>
+
                 <li class="sidebar-item {{ request()->routeIs('items.*') ? 'active' : '' }}">
                     <a href="{{ route('items.index') }}" class='sidebar-link'>
                         <i class="fas fa-boxes"></i>
@@ -62,7 +69,24 @@
                 
                 @endhasrole
 
-                {{-- 
+                @hasrole('Operator SPPG')
+                <li class="sidebar-item {{ request()->routeIs('sppg.*') ? 'active' : '' }}">
+                    <a href="{{ route('sppg.edit') }}" class='sidebar-link'>
+                        <i class="fas fa-boxes"></i>
+                        <span>Item</span>
+                    </a>
+                </li>
+                @endhasrole
+
+                @hasrole('Operator Sekolah')
+                <li class="sidebar-item {{ request()->routeIs('sekolah.*') ? 'active' : '' }}">
+                    <a href="{{ route('sekolah.edit') }}" class='sidebar-link'>
+                        <i class="fas fa-school"></i>
+                        <span>Data Sekolah</span>
+                    </a>
+                @endhasrole
+
+                {{--
 
                 <li class="sidebar-item {{ request()->routeIs('rooms.*') ? 'active' : '' }}">
                     <a href="{{ route('rooms.index') }}" class='sidebar-link'>
