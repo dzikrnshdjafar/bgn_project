@@ -36,15 +36,16 @@
         </div>
         <div class="sidebar-menu">
             <ul class="menu">
-                <li class="sidebar-title">Menu</li>
 
-                @hasrole('Admin')
                 <li class="sidebar-item {{ request()->routeIs('dashboard') ? 'active' : '' }}">
                     <a href="{{ route('dashboard') }}" class='sidebar-link'>
                         <i class="bi bi-grid-fill"></i>
                         <span>Dashboard</span>
                     </a>
                 </li>
+                <li class="sidebar-title">Menu</li>
+
+                @hasrole('Admin')
                 
                 <li class="sidebar-item {{ request()->routeIs('users.*') ? 'active' : '' }}">
                     <a href="{{ route('users.index') }}" class='sidebar-link'>
@@ -69,11 +70,11 @@
                 
                 @endhasrole
 
-                @hasrole('Operator SPPG')
-                <li class="sidebar-item {{ request()->routeIs('sppg.*') ? 'active' : '' }}">
-                    <a href="{{ route('sppg.edit') }}" class='sidebar-link'>
-                        <i class="fas fa-boxes"></i>
-                        <span>Item</span>
+                @hasrole('Operator BGN')
+                <li class="sidebar-item {{ request()->routeIs('makanans.*') ? 'active' : '' }}">
+                    <a href="{{ route('makanans.index') }}" class='sidebar-link'>
+                        <i class="bi bi-grid-fill"></i>
+                        <span>Makanan</span>
                     </a>
                 </li>
                 @endhasrole
@@ -84,6 +85,45 @@
                         <i class="fas fa-school"></i>
                         <span>Data Sekolah</span>
                     </a>
+                </li>
+                <li class="sidebar-item {{ request()->routeIs('laporan-harian.*') ? 'active' : '' }}">
+                    <a href="{{ route('laporan-harian.index') }}" class='sidebar-link'>
+                        <i class="bi bi-file-text"></i>
+                        <span>Laporan Harian</span>
+                    </a>
+                </li>
+                @endhasrole
+
+                @hasrole('Operator SPPG')
+                
+                <li class="sidebar-item {{ request()->routeIs('makanans.*') ? 'active' : '' }}">
+                    <a href="{{ route('makanans.index') }}" class='sidebar-link'>
+                        <i class="bi bi-grid-fill"></i>
+                        <span>Makanan</span>
+                    </a>
+                </li>
+
+                <li class="sidebar-item {{ request()->routeIs('dapur_sehat.*') ? 'active' : '' }}">
+                    <a href="{{ route('dapur_sehat.edit') }}" class='sidebar-link'>
+                        <i class="fas fa-boxes"></i>
+                        <span>Data Dapur Sehat</span>
+                    </a>
+                </li>
+                <li class="sidebar-item {{ request()->routeIs('laporan-harian.*') ? 'active' : '' }}">
+                    <a href="{{ route('laporan-harian.index') }}" class='sidebar-link'>
+                        <i class="bi bi-file-earmark-bar-graph"></i>
+                        <span>Monitoring Laporan</span>
+                    </a>
+                </li>
+                @endhasrole
+
+                @hasrole('Operator Sekolah|Admin|Operator BGN')
+                    <li class="sidebar-item {{ request()->routeIs('siswas.*') ? 'active' : '' }}">
+                        <a href="{{ route('siswas.index') }}" class='sidebar-link'>
+                            <i class="fas fa-user-graduate"></i>
+                            <span>Data Siswa</span>
+                        </a>
+                    </li>
                 @endhasrole
 
                 {{--

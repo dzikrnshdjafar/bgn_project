@@ -2,14 +2,14 @@
 
 namespace App\Http\Controllers;
 
-use App\Models\Sppg;
+use App\Models\DapurSehat;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Auth;
 
-class SppgController extends Controller
+class DapurSehatController extends Controller
 {
     /**
-     * Show the form for editing the authenticated user's SPPG data.
+     * Show the form for editing the authenticated user's Dapur Sehat data.
      */
     public function edit()
     {
@@ -20,14 +20,14 @@ class SppgController extends Controller
             abort(403, 'Unauthorized action.');
         }
 
-        // Get or create sppg data for the user
-        $sppg = $user->sppg ?? new Sppg();
+        // Get or create dapur_sehat data for the user
+        $dapurSehat = $user->dapurSehat ?? new DapurSehat();
 
-        return view('pages.inner.sppg.edit', compact('sppg'));
+        return view('pages.inner.dapur_sehat.edit', compact('dapurSehat'));
     }
 
     /**
-     * Update the authenticated user's SPPG data.
+     * Update the authenticated user's Dapur Sehat data.
      */
     public function update(Request $request)
     {
@@ -43,8 +43,8 @@ class SppgController extends Controller
             'alamat' => ['required', 'string', 'max:255'],
         ]);
 
-        // Update or create sppg data
-        $user->sppg()->updateOrCreate(
+        // Update or create dapur_sehat data
+        $user->dapurSehat()->updateOrCreate(
             ['user_id' => $user->id],
             [
                 'nama_dapur' => $request->nama_dapur,
@@ -52,6 +52,6 @@ class SppgController extends Controller
             ]
         );
 
-        return redirect()->route('sppg.edit')->with('success', 'Data dapur berhasil diperbarui.');
+        return redirect()->route('dapur_sehat.edit')->with('success', 'Data dapur berhasil diperbarui.');
     }
 }

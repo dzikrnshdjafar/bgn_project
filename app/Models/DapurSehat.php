@@ -5,15 +5,16 @@ namespace App\Models;
 use Illuminate\Database\Eloquent\Factories\HasFactory;
 use Illuminate\Database\Eloquent\Model;
 
-class Sekolah extends Model
+class DapurSehat extends Model
 {
     use HasFactory;
 
+    protected $table = 'dapur_sehats';
+
     protected $fillable = [
         'user_id',
-        'nama_sekolah',
-        'alamat_sekolah',
-        'jumlah_siswa',
+        'nama_dapur',
+        'alamat',
     ];
 
     public function user()
@@ -21,13 +22,8 @@ class Sekolah extends Model
         return $this->belongsTo(User::class);
     }
 
-    public function siswas()
+    public function makanans()
     {
-        return $this->hasMany(Siswa::class);
-    }
-
-    public function laporanHarians()
-    {
-        return $this->hasMany(LaporanHarian::class);
+        return $this->hasMany(Makanan::class);
     }
 }

@@ -5,18 +5,17 @@ namespace App\Models;
 use Illuminate\Database\Eloquent\Factories\HasFactory;
 use Illuminate\Database\Eloquent\Model;
 
-class Sppg extends Model
+class Makanan extends Model
 {
     use HasFactory;
 
     protected $fillable = [
-        'user_id',
-        'nama_dapur',
-        'alamat',
+        'nama_makanan',
+        'deskripsi',
     ];
 
-    public function user()
+    public function siswas()
     {
-        return $this->belongsTo(User::class);
+        return $this->hasMany(Siswa::class, 'makanan_kesukaan_id');
     }
 }

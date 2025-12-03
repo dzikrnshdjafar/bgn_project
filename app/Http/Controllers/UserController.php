@@ -15,7 +15,7 @@ class UserController extends Controller
      */
     public function index()
     {
-        $users = User::with(['roles', 'sekolah', 'sppg'])->paginate(10);
+        $users = User::with(['roles', 'sekolah', 'dapurSehat'])->paginate(10);
         return view('pages.inner.users.index', compact('users'));
     }
 
@@ -59,7 +59,7 @@ class UserController extends Controller
                     'alamat_sekolah' => $request->alamat_sekolah,
                 ]);
             } elseif ($request->role === 'Operator SPPG') {
-                $user->sppg()->create([
+                $user->dapurSehat()->create([
                     'nama_dapur' => $request->nama_dapur,
                     'alamat' => $request->alamat,
                 ]);
@@ -82,7 +82,7 @@ class UserController extends Controller
      */
     public function edit(User $user)
     {
-        $user->load(['sekolah', 'sppg']);
+        $user->load(['sekolah', 'dapurSehat']);
         $roles = Role::whereIn('name', ['Operator Sekolah', 'Operator SPPG'])->get();
         return view('pages.inner.users.edit', compact('user', 'roles'));
     }
@@ -122,17 +122,17 @@ class UserController extends Controller
                     'nama_sekolah' => $request->nama_sekolah,
                     'alamat_sekolah' => $request->alamat_sekolah,
                 ]);
-                $user->sppg()->delete(); // Hapus data sppg jika ada
+                $user->dapurSehat()->delete(); // Hapus data dapur sehat jika ada
             } elseif ($request->role === 'Operator SPPG') {
-                $user->sppg()->updateOrCreate([], [
+                $user->dapurSehat()->updateOrCreate([], [
                     'nama_dapur' => $request->nama_dapur,
                     'alamat' => $request->alamat,
                 ]);
                 $user->sekolah()->delete(); // Hapus data sekolah jika ada
             } else {
-                // Jika rolenya bukan keduanya, hapus data sekolah dan sppg
+                // Jika rolenya bukan keduanya, hapus data sekolah dan dapur sehat
                 $user->sekolah()->delete();
-                $user->sppg()->delete();
+                $user->dapurSehat()->delete();
             }
         });
 

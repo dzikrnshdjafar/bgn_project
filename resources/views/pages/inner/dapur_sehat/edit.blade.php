@@ -1,7 +1,7 @@
-@section('title', 'Edit Data Dapur')
+@section('title', 'Edit Data Dapur Sehat')
 
 <x-app-layout>
-    <x-form-card :title="'Edit Data Dapur'" :backLink="route('dashboard')">
+    <x-form-card :title="'Edit Data Dapur Sehat'" :backLink="route('dashboard')">
         @if (session('success'))
             <div class="alert alert-success alert-dismissible fade show" role="alert">
                 {{ session('success') }}
@@ -20,19 +20,19 @@
             </div>
         @endif
 
-        <form action="{{ route('sppg.update') }}" method="POST">
+        <form action="{{ route('dapur_sehat.update') }}" method="POST">
             @csrf
             @method('PUT')
             
             <div class="form-group">
                 <label for="nama_dapur">Nama Dapur</label>
                 <input type="text" name="nama_dapur" class="form-control" id="nama_dapur" 
-                       value="{{ old('nama_dapur', $sppg->nama_dapur ?? '') }}" required>
+                       value="{{ old('nama_dapur', $dapurSehat->nama_dapur ?? '') }}" required>
             </div>
 
             <div class="form-group">
                 <label for="alamat">Alamat</label>
-                <textarea name="alamat" class="form-control" id="alamat" rows="3" required>{{ old('alamat', $sppg->alamat ?? '') }}</textarea>
+                <textarea name="alamat" class="form-control" id="alamat" rows="3" required>{{ old('alamat', $dapurSehat->alamat ?? '') }}</textarea>
             </div>
 
             <button type="submit" class="btn btn-primary mt-3">Simpan Perubahan</button>

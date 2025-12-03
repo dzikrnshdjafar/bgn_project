@@ -55,14 +55,14 @@
             </div>
 
             <div id="sppg-fields" style="display: none;">
-                <h5 class="mt-4">Data SPPG</h5>
+                <h5 class="mt-4">Data Dapur Sehat</h5>
                 <div class="form-group">
                     <label for="nama_dapur">Nama Dapur</label>
-                    <input type="text" name="nama_dapur" class="form-control" id="nama_dapur" value="{{ old('nama_dapur', $user->sppg->nama_dapur ?? '') }}">
+                    <input type="text" name="nama_dapur" class="form-control" id="nama_dapur" value="{{ old('nama_dapur', $user->dapurSehat->nama_dapur ?? '') }}">
                 </div>
                 <div class="form-group">
                     <label for="alamat">Alamat</label>
-                    <input type="text" name="alamat" class="form-control" id="alamat" value="{{ old('alamat', $user->sppg->alamat ?? '') }}">
+                    <input type="text" name="alamat" class="form-control" id="alamat" value="{{ old('alamat', $user->dapurSehat->alamat ?? '') }}">
                 </div>
             </div>
 

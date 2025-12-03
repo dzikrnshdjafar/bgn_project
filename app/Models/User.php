@@ -58,8 +58,8 @@ class User extends Authenticatable
         return $this->hasOne(Sekolah::class);
     }
 
-    public function sppg()
+    public function dapurSehat()
     {
-        return $this->hasOne(Sppg::class);
+        return $this->hasOne(DapurSehat::class);
     }
 }
