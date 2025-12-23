@@ -26,4 +26,9 @@ class DapurSehat extends Model
     {
         return $this->hasMany(Makanan::class);
     }
+
+    public function sekolahs()
+    {
+        return $this->hasMany(Sekolah::class);
+    }
 }

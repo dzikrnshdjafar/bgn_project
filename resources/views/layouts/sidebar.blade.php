@@ -71,12 +71,20 @@
                 @endhasrole
 
                 @hasrole('Operator BGN')
+                <li class="sidebar-item {{ request()->routeIs('kategori-makanans.*') ? 'active' : '' }}">
+                    <a href="{{ route('kategori-makanans.index') }}" class='sidebar-link'>
+                        <i class="bi bi-grid-fill"></i>
+                        <span>Kategori Makanan</span>
+                    </a>
+                </li>
+
                 <li class="sidebar-item {{ request()->routeIs('makanans.*') ? 'active' : '' }}">
                     <a href="{{ route('makanans.index') }}" class='sidebar-link'>
                         <i class="bi bi-grid-fill"></i>
                         <span>Makanan</span>
                     </a>
                 </li>
+
                 @endhasrole
 
                 @hasrole('Operator Sekolah')
@@ -86,16 +94,36 @@
                         <span>Data Sekolah</span>
                     </a>
                 </li>
-                <li class="sidebar-item {{ request()->routeIs('laporan-harian.*') ? 'active' : '' }}">
+                {{-- <li class="sidebar-item {{ request()->routeIs('laporan-harian.*') ? 'active' : '' }}">
                     <a href="{{ route('laporan-harian.index') }}" class='sidebar-link'>
                         <i class="bi bi-file-text"></i>
                         <span>Laporan Harian</span>
                     </a>
-                </li>
+                </li> --}}
                 @endhasrole
 
                 @hasrole('Operator SPPG')
-                
+                <li class="sidebar-item {{ request()->routeIs('sppg-sekolah.*') ? 'active' : '' }}">
+                    <a href="{{ route('sppg-sekolah.index') }}" class='sidebar-link'>
+                        <i class="bi bi-building"></i>
+                        <span>Kelola Sekolah</span>
+                    </a>
+                </li>
+
+                <li class="sidebar-item {{ request()->routeIs('jadwal-menu.*') ? 'active' : '' }}">
+                    <a href="{{ route('jadwal-menu.index') }}" class='sidebar-link'>
+                        <i class="bi bi-calendar-week"></i>
+                        <span>Jadwal Menu Mingguan</span>
+                    </a>
+                </li>
+
+                <li class="sidebar-item {{ request()->routeIs('kategori-makanans.*') ? 'active' : '' }}">
+                    <a href="{{ route('kategori-makanans.index') }}" class='sidebar-link'>
+                        <i class="bi bi-grid-fill"></i>
+                        <span>Kategori Makanan</span>
+                    </a>
+                </li>
+
                 <li class="sidebar-item {{ request()->routeIs('makanans.*') ? 'active' : '' }}">
                     <a href="{{ route('makanans.index') }}" class='sidebar-link'>
                         <i class="bi bi-grid-fill"></i>
@@ -109,22 +137,32 @@
                         <span>Data Dapur Sehat</span>
                     </a>
                 </li>
-                <li class="sidebar-item {{ request()->routeIs('laporan-harian.*') ? 'active' : '' }}">
+                {{-- <li class="sidebar-item {{ request()->routeIs('laporan-harian.*') ? 'active' : '' }}">
                     <a href="{{ route('laporan-harian.index') }}" class='sidebar-link'>
                         <i class="bi bi-file-earmark-bar-graph"></i>
                         <span>Monitoring Laporan</span>
                     </a>
+                </li> --}}
+                @endhasrole
+
+                @hasrole('Operator Sekolah')
+                <!-- Menu Kalender untuk semua user yang login -->
+                <li class="sidebar-item {{ request()->routeIs('kalender-menu.*') ? 'active' : '' }}">
+                    <a href="{{ route('kalender-menu.index') }}" class='sidebar-link'>
+                        <i class="bi bi-calendar2-heart"></i>
+                        <span>Kalender Menu</span>
+                    </a>
                 </li>
                 @endhasrole
 
-                @hasrole('Operator Sekolah|Admin|Operator BGN')
+                {{-- @hasrole('Operator Sekolah|Admin|Operator BGN')
                     <li class="sidebar-item {{ request()->routeIs('siswas.*') ? 'active' : '' }}">
                         <a href="{{ route('siswas.index') }}" class='sidebar-link'>
                             <i class="fas fa-user-graduate"></i>
                             <span>Data Siswa</span>
                         </a>
                     </li>
-                @endhasrole
+                @endhasrole --}}
 
                 {{--
 

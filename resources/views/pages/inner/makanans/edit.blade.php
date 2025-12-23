@@ -17,12 +17,24 @@
             @csrf
             @method('PUT')
 
-            <div class="form-group">
+            <div class="form-group mb-3">
                 <label for="nama_makanan">Nama Makanan</label>
                 <input type="text" name="nama_makanan" class="form-control" id="nama_makanan" value="{{ old('nama_makanan', $makanan->nama_makanan) }}" required>
             </div>
 
-            <div class="form-group">
+            <div class="form-group mb-3">
+                <label for="kategori_makanan_id">Kategori Makanan</label>
+                <select name="kategori_makanan_id" class="form-control" id="kategori_makanan_id">
+                    <option value="">-- Pilih Kategori (Opsional) --</option>
+                    @foreach ($kategoriMakanans as $kategori)
+                        <option value="{{ $kategori->id }}" {{ old('kategori_makanan_id', $makanan->kategori_makanan_id) == $kategori->id ? 'selected' : '' }}>
+                            {{ $kategori->nama_kategori }}
+                        </option>
+                    @endforeach
+                </select>
+            </div>
+
+            <div class="form-group mb-3">
                 <label for="deskripsi">Deskripsi</label>
                 <textarea name="deskripsi" class="form-control" id="deskripsi" rows="4">{{ old('deskripsi', $makanan->deskripsi) }}</textarea>
             </div>

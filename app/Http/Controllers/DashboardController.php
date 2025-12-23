@@ -7,6 +7,7 @@ use App\Models\Sekolah;
 use App\Models\Makanan;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Auth;
+use Illuminate\Support\Facades\DB;
 
 class DashboardController extends Controller
 {
@@ -44,13 +45,24 @@ class DashboardController extends Controller
 
         $totalMakanan = Makanan::count();
 
+        // Get makanan dengan like terbanyak (aggregate dari counter table)
+        $topLikedMakanans = DB::table('makanans as m')
+            ->join('jadwal_menu_makanan as jmm', 'm.id', '=', 'jmm.makanan_id')
+            ->join('jadwal_menu_likes as jml', 'jmm.jadwal_menu_id', '=', 'jml.jadwal_menu_id')
+            ->select('m.id', 'm.nama_makanan', DB::raw('SUM(jml.like_count) as total_likes'))
+            ->groupBy('m.id', 'm.nama_makanan')
+            ->orderBy('total_likes', 'DESC')
+            ->limit(10)
+            ->get();
+
         return view('dashboard', compact(
             'totalSiswa',
             'siswaHadir',
             'siswaTidakHadir',
             'totalSekolah',
             'totalMakanan',
-            'namaSekolah'
+            'namaSekolah',
+            'topLikedMakanans'
         ));
     }
 }

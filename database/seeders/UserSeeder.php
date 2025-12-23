@@ -25,6 +25,7 @@ class UserSeeder extends Seeder
             'password' => bcrypt('asdasdasd'),
         ]);
 
+        // Operator Sekolah
         User::create([
             'name' => 'Seko',
             'email' => 'sekolah@gmail.com',
@@ -32,8 +33,45 @@ class UserSeeder extends Seeder
         ]);
 
         User::create([
+            'name' => 'Kepala SDN 2',
+            'email' => 'sdn2@gmail.com',
+            'password' => bcrypt('asdasdasd'),
+        ]);
+
+        User::create([
+            'name' => 'Kepala SDN 3',
+            'email' => 'sdn3@gmail.com',
+            'password' => bcrypt('asdasdasd'),
+        ]);
+
+        User::create([
+            'name' => 'Kepala SDN 4',
+            'email' => 'sdn4@gmail.com',
+            'password' => bcrypt('asdasdasd'),
+        ]);
+
+        User::create([
+            'name' => 'Kepala SDN 5',
+            'email' => 'sdn5@gmail.com',
+            'password' => bcrypt('asdasdasd'),
+        ]);
+
+        // Operator SPPG
+        User::create([
             'name' => 'Espe',
             'email' => 'sppg@gmail.com',
+            'password' => bcrypt('asdasdasd'),
+        ]);
+
+        User::create([
+            'name' => 'SPPG Jakarta Selatan',
+            'email' => 'sppg-jaksel@gmail.com',
+            'password' => bcrypt('asdasdasd'),
+        ]);
+
+        User::create([
+            'name' => 'SPPG Jakarta Timur',
+            'email' => 'sppg-jaktim@gmail.com',
             'password' => bcrypt('asdasdasd'),
         ]);
     }

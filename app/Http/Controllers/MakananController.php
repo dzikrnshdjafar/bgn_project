@@ -3,6 +3,7 @@
 namespace App\Http\Controllers;
 
 use App\Models\Makanan;
+use App\Models\KategoriMakanan;
 use Illuminate\Http\Request;
 
 class MakananController extends Controller
@@ -12,7 +13,7 @@ class MakananController extends Controller
      */
     public function index()
     {
-        $makanans = Makanan::paginate(10);
+        $makanans = Makanan::with('kategoriMakanan')->paginate(10);
         return view('pages.inner.makanans.index', compact('makanans'));
     }
 
@@ -21,7 +22,8 @@ class MakananController extends Controller
      */
     public function create()
     {
-        return view('pages.inner.makanans.create');
+        $kategoriMakanans = KategoriMakanan::all();
+        return view('pages.inner.makanans.create', compact('kategoriMakanans'));
     }
 
     /**
@@ -31,11 +33,13 @@ class MakananController extends Controller
     {
         $request->validate([
             'nama_makanan' => ['required', 'string', 'max:255'],
+            'kategori_makanan_id' => ['nullable', 'exists:kategori_makanans,id'],
             'deskripsi' => ['nullable', 'string'],
         ]);
 
         Makanan::create([
             'nama_makanan' => $request->nama_makanan,
+            'kategori_makanan_id' => $request->kategori_makanan_id,
             'deskripsi' => $request->deskripsi,
         ]);
 
@@ -47,6 +51,7 @@ class MakananController extends Controller
      */
     public function show(Makanan $makanan)
     {
+        $makanan->load('kategoriMakanan');
         return view('pages.inner.makanans.show', compact('makanan'));
     }
 
@@ -55,7 +60,8 @@ class MakananController extends Controller
      */
     public function edit(Makanan $makanan)
     {
-        return view('pages.inner.makanans.edit', compact('makanan'));
+        $kategoriMakanans = KategoriMakanan::all();
+        return view('pages.inner.makanans.edit', compact('makanan', 'kategoriMakanans'));
     }
 
     /**
@@ -65,11 +71,13 @@ class MakananController extends Controller
     {
         $request->validate([
             'nama_makanan' => ['required', 'string', 'max:255'],
+            'kategori_makanan_id' => ['nullable', 'exists:kategori_makanans,id'],
             'deskripsi' => ['nullable', 'string'],
         ]);
 
         $makanan->update([
             'nama_makanan' => $request->nama_makanan,
+            'kategori_makanan_id' => $request->kategori_makanan_id,
             'deskripsi' => $request->deskripsi,
         ]);
 

@@ -11,6 +11,7 @@ class Sekolah extends Model
 
     protected $fillable = [
         'user_id',
+        'dapur_sehat_id',
         'nama_sekolah',
         'alamat_sekolah',
         'jumlah_siswa',
@@ -19,6 +20,11 @@ class Sekolah extends Model
     public function user()
     {
         return $this->belongsTo(User::class);
+    }
+
+    public function dapurSehat()
+    {
+        return $this->belongsTo(DapurSehat::class);
     }
 
     public function siswas()

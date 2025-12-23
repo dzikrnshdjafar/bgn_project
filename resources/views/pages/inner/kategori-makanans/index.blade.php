@@ -1,4 +1,4 @@
-@section('title', 'Daftar Makanan')
+@section('title', 'Daftar Kategori Makanan')
 
 <x-app-layout>
     <section class="row">
@@ -15,57 +15,56 @@
                     <button type="button" class="btn-close" data-bs-dismiss="alert" aria-label="Close"></button>
                 </div>
             @endif
-            <x-table-card :title="'Daftar Makanan'">
+            <x-table-card :title="'Daftar Kategori Makanan'">
                 <x-slot name="headerActions">
                     <div class="d-flex flex-wrap gap-2 mb-3">
-                        <a href="{{ route('makanans.create') }}" class="btn btn-primary">
-                            <i class="bi bi-plus-lg me-1"></i> Tambah Makanan
+                        <a href="{{ route('kategori-makanans.create') }}" class="btn btn-primary">
+                            <i class="bi bi-plus-lg me-1"></i> Tambah Kategori
                         </a>
                     </div>
                 </x-slot>
                 <x-slot name="tableHeader">
                     <tr>
                         <th>Id</th>
-                        <th>Nama Makanan</th>
-                        <th>Kategori</th>
+                        <th>Nama Kategori</th>
                         <th>Deskripsi</th>
+                        <th>Jumlah Makanan</th>
                         <th>Aksi</th>
                     </tr>
                 </x-slot>
                 <x-slot name="tableBody">
-                    @foreach ($makanans as $makanan)
+                    @forelse ($kategoriMakanans as $kategori)
                         <tr>
-                            <td>{{ $makanan->id }}</td>
-                            <td>{{ $makanan->nama_makanan }}</td>
-                            <td>
-                                @if($makanan->kategoriMakanan)
-                                   {{ $makanan->kategoriMakanan->nama_kategori }}
-                                @else
-                                   -
-                                @endif
+                            <td>{{ $kategori->id }}</td>
+                            <td>{{ $kategori->nama_kategori }}</td>
+                            <td>{{ Str::limit($kategori->deskripsi, 50) }}</td>
+                            <td>{{ $kategori->makanans_count }} makanan
                             </td>
-                            <td>{{ Str::limit($makanan->deskripsi, 50) }}</td>
                             <td>
-                                <a href="{{ route('makanans.show', $makanan->id) }}" class="btn btn-light-info me-2 mb-2">
+                                <a href="{{ route('kategori-makanans.show', $kategori->id) }}" class="btn btn-light-info me-2 mb-2">
                                     <i class="bi bi-info-circle me-1"></i> Detail
                                 </a>
-                                <a href="{{ route('makanans.edit', $makanan->id) }}" class="btn btn-light-warning me-2 mb-2">
+                                <a href="{{ route('kategori-makanans.edit', $kategori->id) }}" class="btn btn-light-warning me-2 mb-2">
                                     <i class="bi bi-pencil me-1"></i> Edit
                                 </a>
-                                <form action="{{ route('makanans.destroy', $makanan->id) }}" method="POST" style="display:inline;">
+                                <form action="{{ route('kategori-makanans.destroy', $kategori->id) }}" method="POST" style="display:inline;">
                                     @csrf
                                     @method('DELETE')
-                                    <button type="submit" class="btn btn-light-danger mb-2" onclick="return confirm('Are you sure you want to delete this makanan?')">
+                                    <button type="submit" class="btn btn-light-danger mb-2" onclick="return confirm('Apakah Anda yakin ingin menghapus kategori ini?')">
                                         <i class="bi bi-trash3 me-1"></i> Hapus
                                     </button>
                                 </form>
                             </td>
                         </tr>
-                    @endforeach
+                    @empty
+                        <tr>
+                            <td colspan="5" class="text-center">Tidak ada data kategori makanan.</td>
+                        </tr>
+                    @endforelse
                 </x-slot>
             </x-table-card>
             <div class="mt-4">
-                {{ $makanans->links() }}
+                {{ $kategoriMakanans->links() }}
             </div>
         </div>
     </section>

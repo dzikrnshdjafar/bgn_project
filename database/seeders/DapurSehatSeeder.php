@@ -14,14 +14,33 @@ class DapurSehatSeeder extends Seeder
      */
     public function run(): void
     {
-        // Get user with Operator SPPG role
-        $userSppg = User::where('email', 'sppg@gmail.com')->first();
-
-        if ($userSppg) {
+        // SPPG Jakarta Pusat
+        $userSppg1 = User::where('email', 'sppg@gmail.com')->first();
+        if ($userSppg1) {
             DapurSehat::create([
-                'user_id' => $userSppg->id,
+                'user_id' => $userSppg1->id,
                 'nama_dapur' => 'Dapur Sehat Jakarta Pusat',
                 'alamat' => 'Jl. Tanah Abang No. 10, Jakarta Pusat',
+            ]);
+        }
+
+        // SPPG Jakarta Selatan
+        $userSppg2 = User::where('email', 'sppg-jaksel@gmail.com')->first();
+        if ($userSppg2) {
+            DapurSehat::create([
+                'user_id' => $userSppg2->id,
+                'nama_dapur' => 'Dapur Sehat Jakarta Selatan',
+                'alamat' => 'Jl. Fatmawati No. 25, Jakarta Selatan',
+            ]);
+        }
+
+        // SPPG Jakarta Timur
+        $userSppg3 = User::where('email', 'sppg-jaktim@gmail.com')->first();
+        if ($userSppg3) {
+            DapurSehat::create([
+                'user_id' => $userSppg3->id,
+                'nama_dapur' => 'Dapur Sehat Jakarta Timur',
+                'alamat' => 'Jl. Cililitan No. 15, Jakarta Timur',
             ]);
         }
     }

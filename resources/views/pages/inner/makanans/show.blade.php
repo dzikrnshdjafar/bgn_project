@@ -20,6 +20,16 @@
                         <div class="col-md-9">{{ $makanan->nama_makanan }}</div>
                     </div>
                     <div class="row mb-3">
+                        <div class="col-md-3 fw-bold">Kategori:</div>
+                        <div class="col-md-9">
+                            @if($makanan->kategoriMakanan)
+                                <span class="badge bg-secondary">{{ $makanan->kategoriMakanan->nama_kategori }}</span>
+                            @else
+                                <span class="text-muted">-</span>
+                            @endif
+                        </div>
+                    </div>
+                    <div class="row mb-3">
                         <div class="col-md-3 fw-bold">Deskripsi:</div>
                         <div class="col-md-9">{{ $makanan->deskripsi ?? '-' }}</div>
                     </div>
