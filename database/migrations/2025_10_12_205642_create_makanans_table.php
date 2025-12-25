@@ -14,6 +14,7 @@ return new class extends Migration
         Schema::create('makanans', function (Blueprint $table) {
             $table->id();
             $table->string('nama_makanan');
+            $table->foreignId('kategori_makanan_id')->nullable()->constrained('kategori_makanans')->onDelete('set null');
             $table->text('deskripsi')->nullable();
             $table->timestamps();
         });

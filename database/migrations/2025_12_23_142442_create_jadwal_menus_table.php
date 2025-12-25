@@ -15,7 +15,6 @@ return new class extends Migration
             $table->id();
             $table->foreignId('dapur_sehat_id')->constrained('dapur_sehats')->onDelete('cascade');
             $table->enum('hari', ['Senin', 'Selasa', 'Rabu', 'Kamis', 'Jumat', 'Sabtu', 'Minggu']);
-            $table->date('tanggal');
             $table->text('keterangan')->nullable();
             $table->timestamps();
         });

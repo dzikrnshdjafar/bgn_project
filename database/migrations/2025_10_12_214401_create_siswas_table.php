@@ -16,6 +16,7 @@ return new class extends Migration
             $table->foreignId('sekolah_id')->constrained('sekolahs')->onDelete('cascade');
             $table->string('nama_siswa');
             $table->foreignId('makanan_kesukaan_id')->nullable()->constrained('makanans')->onDelete('set null');
+            $table->boolean('kehadiran')->default(false);
             $table->timestamps();
         });
     }

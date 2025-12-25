@@ -14,6 +14,7 @@ return new class extends Migration
         Schema::create('sekolahs', function (Blueprint $table) {
             $table->id();
             $table->foreignId('user_id')->constrained()->onDelete('cascade');
+            $table->foreignId('dapur_sehat_id')->nullable()->constrained('dapur_sehats')->onDelete('set null');
             $table->string('nama_sekolah');
             $table->string('alamat_sekolah');
             $table->integer('jumlah_siswa')->default(0);

@@ -19,6 +19,8 @@ return new class extends Migration
             $table->integer('siswa_hadir')->default(0);
             $table->integer('siswa_tidak_hadir')->default(0);
             $table->text('keterangan')->nullable();
+            $table->enum('status_pengantaran', ['Belum Diantarkan', 'Telah Diantarkan'])->default('Belum Diantarkan');
+            $table->foreignId('makanan_id')->nullable()->constrained('makanans')->onDelete('set null');
             $table->timestamps();
 
             // Unique constraint untuk sekolah dan tanggal (satu laporan per hari per sekolah)

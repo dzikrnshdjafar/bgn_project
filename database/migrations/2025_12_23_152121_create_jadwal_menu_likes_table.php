@@ -13,11 +13,15 @@ return new class extends Migration
     {
         Schema::create('jadwal_menu_likes', function (Blueprint $table) {
             $table->id();
-            $table->foreignId('user_id')->constrained('users')->onDelete('cascade');
             $table->foreignId('jadwal_menu_id')->constrained('jadwal_menus')->onDelete('cascade');
+            $table->foreignId('sekolah_id')->constrained('sekolahs')->onDelete('cascade');
+            $table->date('tanggal');
+            $table->unsignedInteger('like_count')->default(0);
+            $table->integer('jumlah_sisa')->default(0)->comment('Jumlah makanan yang tersisa (porsi)');
             $table->timestamps();
 
-            // Allow multiple likes from same user (removed unique constraint)
+            // Unique constraint: satu row per menu per sekolah per tanggal
+            $table->unique(['jadwal_menu_id', 'sekolah_id', 'tanggal']);
         });
     }
 
