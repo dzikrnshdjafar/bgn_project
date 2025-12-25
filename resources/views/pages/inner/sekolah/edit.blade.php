@@ -39,7 +39,6 @@
                 <div class="alert alert-info mt-3">
                     <h6 class="alert-heading"><i class="bi bi-building"></i> Informasi SPPG</h6>
                     <p class="mb-1"><strong>Dapur:</strong> {{ $sekolah->sppg->nama_dapur }}</p>
-                    <p class="mb-1"><strong>Zona:</strong> {{ $sekolah->zona ?? '-' }}</p>
                     <hr>
                     <p class="mb-0 small">Sekolah ini dilayani oleh {{ $sekolah->sppg->nama_dapur }}.</p>
                 </div>

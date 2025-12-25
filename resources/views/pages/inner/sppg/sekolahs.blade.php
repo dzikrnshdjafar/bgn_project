@@ -12,7 +12,11 @@
                     <nav aria-label="breadcrumb" class="breadcrumb-header float-start float-lg-end">
                         <ol class="breadcrumb">
                             <li class="breadcrumb-item"><a href="{{ route('dashboard') }}">Dashboard</a></li>
-                            <li class="breadcrumb-item"><a href="{{ route('sppg.edit') }}">Data Dapur</a></li>
+                            @if(auth()->user()->hasRole('Admin'))
+                                <li class="breadcrumb-item"><a href="{{ route('admin.sppgs.index') }}">Kelola SPPG</a></li>
+                            @else
+                                <li class="breadcrumb-item"><a href="{{ route('sppg.edit') }}">Data Dapur</a></li>
+                            @endif
                             <li class="breadcrumb-item active" aria-current="page">Kelola Sekolah</li>
                         </ol>
                     </nav>
@@ -49,14 +53,14 @@
             <div class="card">
                 <div class="card-header">
                     <h5 class="card-title">
-                        Tambah Sekolah ke Zona Pengantaran
+                        Tambah Sekolah
                     </h5>
                 </div>
                 <div class="card-body">
                     @if($availableSekolahs->count() > 0)
-                        <form action="{{ route('sppg.sekolahs.attach') }}" method="POST" class="row g-3">
+                        <form action="{{ auth()->user()->hasRole('Admin') ? route('admin.sppgs.sekolahs.attach', $sppg->id) : route('sppg.sekolahs.attach') }}" method="POST" class="row g-3">
                             @csrf
-                            <div class="col-md-5">
+                            <div class="col-md-10">
                                 <label for="sekolah_id" class="form-label">Pilih Sekolah</label>
                                 <select name="sekolah_id" id="sekolah_id" class="form-select" required>
                                     <option value="">-- Pilih Sekolah --</option>
@@ -64,11 +68,6 @@
                                         <option value="{{ $sekolah->id }}">{{ $sekolah->nama_sekolah }} - {{ $sekolah->alamat_sekolah }}</option>
                                     @endforeach
                                 </select>
-                            </div>
-                            <div class="col-md-5">
-                                <label for="zona" class="form-label">Zona Pengantaran</label>
-                                <input type="text" name="zona" id="zona" class="form-control" 
-                                       placeholder="Contoh: Zona A, Zona Utara, dll" required>
                             </div>
                             <div class="col-md-2 d-flex align-items-end">
                                 <button type="submit" class="btn btn-primary w-100">Tambah</button>
@@ -95,7 +94,6 @@
                                         <th>No</th>
                                         <th>Nama Sekolah</th>
                                         <th>Alamat</th>
-                                        <th>Zona Pengantaran</th>
                                         <th>Aksi</th>
                                     </tr>
                                 </thead>
@@ -106,18 +104,7 @@
                                             <td>{{ $sekolah->nama_sekolah }}</td>
                                             <td>{{ $sekolah->alamat_sekolah }}</td>
                                             <td>
-                                                <form action="{{ route('sppg.sekolahs.update', $sekolah->id) }}" method="POST" class="d-inline-flex gap-2">
-                                                    @csrf
-                                                    @method('PUT')
-                                                    <input type="text" name="zona" value="{{ $sekolah->zona }}" 
-                                                           class="form-control form-control-sm" style="width: 150px;" required>
-                                                    <button type="submit" class="btn btn-sm btn-success">
-                                                        <i class="bi bi-check-circle"></i>
-                                                    </button>
-                                                </form>
-                                            </td>
-                                            <td>
-                                                <form action="{{ route('sppg.sekolahs.detach', $sekolah->id) }}" method="POST" 
+                                                <form action="{{ auth()->user()->hasRole('Admin') ? route('admin.sppgs.sekolahs.detach', [$sppg->id, $sekolah->id]) : route('sppg.sekolahs.detach', $sekolah->id) }}" method="POST" 
                                                       onsubmit="return confirm('Apakah Anda yakin ingin menghapus sekolah ini dari zona pengantaran?')">
                                                     @csrf
                                                     @method('DELETE')

@@ -24,6 +24,12 @@
                         <x-nav-link :href="route('sekolah.edit')" :active="request()->routeIs('sekolah.edit')">
                             {{ __('Data Sekolah') }}
                         </x-nav-link>
+                        <x-nav-link :href="route('distribusi.today')" :active="request()->routeIs('distribusi.today')">
+                            {{ __('Distribusi Hari Ini') }}
+                        </x-nav-link>
+                        <x-nav-link :href="route('distribusi.index')" :active="request()->routeIs('distribusi.index')">
+                            {{ __('Riwayat Distribusi') }}
+                        </x-nav-link>
                     @endhasrole
                     @hasrole('Operator SPPG')
                         <x-nav-link :href="route('sppg.edit')" :active="request()->routeIs('sppg.edit')">

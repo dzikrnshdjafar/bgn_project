@@ -14,7 +14,6 @@ class Sekolah extends Model
         'sppg_id',
         'nama_sekolah',
         'alamat_sekolah',
-        'zona',
     ];
 
     public function user()

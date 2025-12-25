@@ -11,12 +11,11 @@ return new class extends Migration
      */
     public function up(): void
     {
-        Schema::create('sekolahs', function (Blueprint $table) {
+        Schema::create('menus', function (Blueprint $table) {
             $table->id();
-            $table->foreignId('user_id')->constrained()->onDelete('cascade');
-            $table->foreignId('sppg_id')->nullable()->constrained('sppgs')->onDelete('set null');
-            $table->string('nama_sekolah');
-            $table->string('alamat_sekolah');
+            $table->foreignId('kategori_menu_id')->nullable()->constrained('kategori_menus')->onDelete('set null');
+            $table->string('nama_menu');
+            $table->text('deskripsi')->nullable();
             $table->timestamps();
         });
     }
@@ -26,6 +25,6 @@ return new class extends Migration
      */
     public function down(): void
     {
-        Schema::dropIfExists('sekolahs');
+        Schema::dropIfExists('menus');
     }
 };

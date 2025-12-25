@@ -26,14 +26,12 @@ class SekolahSppgSeeder extends Seeder
             if ($sppgs->count() >= 1 && $sekolahs->count() >= 1) {
                 $sekolahs[0]->update([
                     'sppg_id' => $sppgs[0]->id,
-                    'zona' => 'Zona Pusat A'
                 ]);
             }
 
             if ($sppgs->count() >= 1 && $sekolahs->count() >= 2) {
                 $sekolahs[1]->update([
                     'sppg_id' => $sppgs[0]->id,
-                    'zona' => 'Zona Pusat B'
                 ]);
             }
 
@@ -41,7 +39,6 @@ class SekolahSppgSeeder extends Seeder
             if ($sppgs->count() >= 2 && $sekolahs->count() >= 3) {
                 $sekolahs[2]->update([
                     'sppg_id' => $sppgs[1]->id,
-                    'zona' => 'Zona Utara A'
                 ]);
             }
 

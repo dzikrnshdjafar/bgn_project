@@ -18,6 +18,8 @@ class DatabaseSeeder extends Seeder
         $this->call(SekolahSeeder::class);
         $this->call(SppgSeeder::class);
         $this->call(SekolahSppgSeeder::class);
+        $this->call(KategoriMenuSeeder::class);
+        $this->call(MenuSeeder::class);
         $this->call(ItemSeeder::class);
         $this->call(ApplicationSetSeeder::class);
     }

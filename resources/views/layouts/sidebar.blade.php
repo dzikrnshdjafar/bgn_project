@@ -60,6 +60,27 @@
                     </a>
                 </li>
                 
+                <li class="sidebar-item {{ request()->routeIs('kategori-menus.*') ? 'active' : '' }}">
+                    <a href="{{ route('kategori-menus.index') }}" class='sidebar-link'>
+                        <i class="fas fa-layer-group"></i>
+                        <span>Kategori Menu</span>
+                    </a>
+                </li>
+                
+                <li class="sidebar-item {{ request()->routeIs('menus.*') ? 'active' : '' }}">
+                    <a href="{{ route('menus.index') }}" class='sidebar-link'>
+                        <i class="fas fa-clipboard-list"></i>
+                        <span>Menu</span>
+                    </a>
+                </li>
+
+                <li class="sidebar-item {{ request()->routeIs('jadwal-menus.*') ? 'active' : '' }}">
+                    <a href="{{ route('jadwal-menus.index') }}" class='sidebar-link'>
+                        <i class="fas fa-calendar"></i>
+                        <span>Jadwal</span>
+                    </a>
+                </li>
+
                 <li class="sidebar-item {{ request()->routeIs('appsets.edit') ? 'active' : '' }}">
                     <a href="{{ route('appsets.edit') }}" class='sidebar-link'>
                         <i class="fas fa-cogs"></i>
@@ -70,10 +91,17 @@
                 @endhasrole
 
                 @hasrole('Operator SPPG')
+                
+                <li class="sidebar-item {{ request()->routeIs('jadwal-menus.*') ? 'active' : '' }}">
+                    <a href="{{ route('jadwal-menus.index') }}" class='sidebar-link'>
+                        <i class="fas fa-calendar"></i>
+                        <span>Jadwal</span>
+                    </a>
+                </li>
                 <li class="sidebar-item {{ request()->routeIs('sppg.*') ? 'active' : '' }}">
                     <a href="{{ route('sppg.edit') }}" class='sidebar-link'>
                         <i class="fas fa-boxes"></i>
-                        <span>Item</span>
+                        <span>Data Dapur Sehat</span>
                     </a>
                 </li>
                 @endhasrole
@@ -84,6 +112,19 @@
                         <i class="fas fa-school"></i>
                         <span>Data Sekolah</span>
                     </a>
+                </li>
+                <li class="sidebar-item {{ request()->routeIs('distribusi.today') ? 'active' : '' }}">
+                    <a href="{{ route('distribusi.today') }}" class='sidebar-link'>
+                        <i class="fas fa-truck"></i>
+                        <span>Distribusi Hari Ini</span>
+                    </a>
+                </li>
+                <li class="sidebar-item {{ request()->routeIs('distribusi.index') ? 'active' : '' }}">
+                    <a href="{{ route('distribusi.index') }}" class='sidebar-link'>
+                        <i class="fas fa-calendar-day"></i>
+                        <span>Riwayat Distribusi</span>
+                    </a>
+                </li>
                 @endhasrole
 
                 {{--

@@ -10,6 +10,22 @@ use Illuminate\Support\Facades\Auth;
 class SppgController extends Controller
 {
     /**
+     * Display a listing of all SPPGs (Admin only)
+     */
+    public function index()
+    {
+        $user = Auth::user();
+
+        if (!$user->hasRole('Admin')) {
+            abort(403, 'Unauthorized action.');
+        }
+
+        $sppgs = Sppg::with('user')->paginate(10);
+
+        return view('pages.inner.sppg.index', compact('sppgs'));
+    }
+
+    /**
      * Show the form for editing the authenticated user's SPPG data.
      */
     public function edit()
@@ -57,20 +73,27 @@ class SppgController extends Controller
     }
 
     /**
-     * Show list of schools assigned to this SPPG
+     * Show list of schools assigned to this SPPG (for Operator SPPG)
+     * or for a specific SPPG (for Admin)
      */
-    public function sekolahs()
+    public function sekolahs($sppgId = null)
     {
         $user = Auth::user();
 
-        if (!$user->hasRole('Operator SPPG')) {
+        if ($user->hasRole('Admin')) {
+            // Admin can view any SPPG's schools
+            if (!$sppgId) {
+                return redirect()->route('admin.sppgs.index')->with('error', 'Pilih SPPG terlebih dahulu.');
+            }
+            $sppg = Sppg::findOrFail($sppgId);
+        } elseif ($user->hasRole('Operator SPPG')) {
+            // Operator SPPG can only view their own SPPG's schools
+            $sppg = $user->sppg;
+            if (!$sppg) {
+                return redirect()->route('sppg.edit')->with('error', 'Silakan lengkapi data dapur terlebih dahulu.');
+            }
+        } else {
             abort(403, 'Unauthorized action.');
-        }
-
-        $sppg = $user->sppg;
-
-        if (!$sppg) {
-            return redirect()->route('sppg.edit')->with('error', 'Silakan lengkapi data dapur terlebih dahulu.');
         }
 
         $sekolahs = $sppg->sekolahs()->paginate(10);
@@ -82,23 +105,28 @@ class SppgController extends Controller
     /**
      * Attach a school to SPPG with zona
      */
-    public function attachSekolah(Request $request)
+    public function attachSekolah(Request $request, $sppgId = null)
     {
         $user = Auth::user();
 
-        if (!$user->hasRole('Operator SPPG')) {
+        if ($user->hasRole('Admin')) {
+            // Admin can attach to any SPPG
+            if (!$sppgId) {
+                return back()->with('error', 'SPPG tidak ditemukan.');
+            }
+            $sppg = Sppg::findOrFail($sppgId);
+        } elseif ($user->hasRole('Operator SPPG')) {
+            // Operator SPPG can only attach to their own SPPG
+            $sppg = $user->sppg;
+            if (!$sppg) {
+                return redirect()->route('sppg.edit')->with('error', 'Silakan lengkapi data dapur terlebih dahulu.');
+            }
+        } else {
             abort(403, 'Unauthorized action.');
-        }
-
-        $sppg = $user->sppg;
-
-        if (!$sppg) {
-            return redirect()->route('sppg.edit')->with('error', 'Silakan lengkapi data dapur terlebih dahulu.');
         }
 
         $request->validate([
             'sekolah_id' => ['required', 'exists:sekolahs,id'],
-            'zona' => ['required', 'string', 'max:255'],
         ]);
 
         $sekolah = Sekolah::find($request->sekolah_id);
@@ -110,57 +138,32 @@ class SppgController extends Controller
 
         $sekolah->update([
             'sppg_id' => $sppg->id,
-            'zona' => $request->zona,
         ]);
 
         return back()->with('success', 'Sekolah berhasil ditambahkan ke zona pengantaran.');
     }
 
     /**
-     * Update zona for a school
-     */
-    public function updateSekolah(Request $request, $sekolahId)
-    {
-        $user = Auth::user();
-
-        if (!$user->hasRole('Operator SPPG')) {
-            abort(403, 'Unauthorized action.');
-        }
-
-        $sppg = $user->sppg;
-
-        if (!$sppg) {
-            return redirect()->route('sppg.edit')->with('error', 'Silakan lengkapi data dapur terlebih dahulu.');
-        }
-
-        $request->validate([
-            'zona' => ['required', 'string', 'max:255'],
-        ]);
-
-        $sekolah = Sekolah::where('id', $sekolahId)
-            ->where('sppg_id', $sppg->id)
-            ->firstOrFail();
-
-        $sekolah->update(['zona' => $request->zona]);
-
-        return back()->with('success', 'Zona pengantaran berhasil diperbarui.');
-    }
-
-    /**
      * Detach a school from SPPG
      */
-    public function detachSekolah($sekolahId)
+    public function detachSekolah($sekolahId, $sppgId = null)
     {
         $user = Auth::user();
 
-        if (!$user->hasRole('Operator SPPG')) {
+        if ($user->hasRole('Admin')) {
+            // Admin can detach from any SPPG
+            if (!$sppgId) {
+                return back()->with('error', 'SPPG tidak ditemukan.');
+            }
+            $sppg = Sppg::findOrFail($sppgId);
+        } elseif ($user->hasRole('Operator SPPG')) {
+            // Operator SPPG can only detach from their own SPPG
+            $sppg = $user->sppg;
+            if (!$sppg) {
+                return redirect()->route('sppg.edit')->with('error', 'Silakan lengkapi data dapur terlebih dahulu.');
+            }
+        } else {
             abort(403, 'Unauthorized action.');
-        }
-
-        $sppg = $user->sppg;
-
-        if (!$sppg) {
-            return redirect()->route('sppg.edit')->with('error', 'Silakan lengkapi data dapur terlebih dahulu.');
         }
 
         $sekolah = Sekolah::where('id', $sekolahId)
@@ -169,7 +172,6 @@ class SppgController extends Controller
 
         $sekolah->update([
             'sppg_id' => null,
-            'zona' => null,
         ]);
 
         return back()->with('success', 'Sekolah berhasil dihapus dari zona pengantaran.');
