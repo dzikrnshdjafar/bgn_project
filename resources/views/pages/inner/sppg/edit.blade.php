@@ -9,6 +9,13 @@
             </div>
         @endif
 
+        @if (session('error'))
+            <div class="alert alert-danger alert-dismissible fade show" role="alert">
+                {{ session('error') }}
+                <button type="button" class="btn-close" data-bs-dismiss="alert" aria-label="Close"></button>
+            </div>
+        @endif
+
         @if ($errors->any())
             <div class="alert alert-danger alert-dismissible fade show" role="alert">
                 <ul>
@@ -35,7 +42,14 @@
                 <textarea name="alamat" class="form-control" id="alamat" rows="3" required>{{ old('alamat', $sppg->alamat ?? '') }}</textarea>
             </div>
 
-            <button type="submit" class="btn btn-primary mt-3">Simpan Perubahan</button>
+            <div class="d-flex gap-2 mt-3">
+                <button type="submit" class="btn btn-primary">Simpan Perubahan</button>
+                @if($sppg->exists)
+                    <a href="{{ route('sppg.sekolahs') }}" class="btn btn-success">
+                        <i class="bi bi-building"></i> Kelola Sekolah Zona Pengantaran
+                    </a>
+                @endif
+            </div>
         </form>
     </x-form-card>
 </x-app-layout>

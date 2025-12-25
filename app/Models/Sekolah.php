@@ -11,12 +11,19 @@ class Sekolah extends Model
 
     protected $fillable = [
         'user_id',
+        'sppg_id',
         'nama_sekolah',
         'alamat_sekolah',
+        'zona',
     ];
 
     public function user()
     {
         return $this->belongsTo(User::class);
+    }
+
+    public function sppg()
+    {
+        return $this->belongsTo(Sppg::class);
     }
 }

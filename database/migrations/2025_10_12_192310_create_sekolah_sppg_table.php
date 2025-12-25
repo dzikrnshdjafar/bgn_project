@@ -11,13 +11,9 @@ return new class extends Migration
      */
     public function up(): void
     {
-        Schema::create('sekolahs', function (Blueprint $table) {
-            $table->id();
-            $table->foreignId('user_id')->constrained()->onDelete('cascade');
-            $table->string('nama_sekolah');
-            $table->string('alamat_sekolah');
-            $table->timestamps();
-        });
+        // This pivot table is no longer needed since we changed to one-to-many relationship
+        // The relationship is now: 1 SPPG has many Sekolahs, 1 Sekolah belongs to 1 SPPG
+        // sppg_id and zona are now stored directly in sekolahs table
     }
 
     /**
@@ -25,6 +21,6 @@ return new class extends Migration
      */
     public function down(): void
     {
-        Schema::dropIfExists('sekolahs');
+        Schema::dropIfExists('sekolah_sppg');
     }
 };

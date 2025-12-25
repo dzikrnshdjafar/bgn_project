@@ -19,4 +19,9 @@ class Sppg extends Model
     {
         return $this->belongsTo(User::class);
     }
+
+    public function sekolahs()
+    {
+        return $this->hasMany(Sekolah::class);
+    }
 }

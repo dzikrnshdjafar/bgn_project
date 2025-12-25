@@ -35,6 +35,20 @@
                 <textarea name="alamat_sekolah" class="form-control" id="alamat_sekolah" rows="3" required>{{ old('alamat_sekolah', $sekolah->alamat_sekolah ?? '') }}</textarea>
             </div>
 
+            @if($sekolah->exists && $sekolah->sppg)
+                <div class="alert alert-info mt-3">
+                    <h6 class="alert-heading"><i class="bi bi-building"></i> Informasi SPPG</h6>
+                    <p class="mb-1"><strong>Dapur:</strong> {{ $sekolah->sppg->nama_dapur }}</p>
+                    <p class="mb-1"><strong>Zona:</strong> {{ $sekolah->zona ?? '-' }}</p>
+                    <hr>
+                    <p class="mb-0 small">Sekolah ini dilayani oleh {{ $sekolah->sppg->nama_dapur }}.</p>
+                </div>
+            @elseif($sekolah->exists)
+                <div class="alert alert-warning mt-3">
+                    <i class="bi bi-exclamation-triangle"></i> Sekolah ini belum terdaftar di SPPG manapun.
+                </div>
+            @endif
+
             <button type="submit" class="btn btn-primary mt-3">Simpan Perubahan</button>
         </form>
     </x-form-card>

@@ -29,6 +29,12 @@ Route::middleware('auth')->group(function () {
     Route::get('/sppg/edit', [SppgController::class, 'edit'])->name('sppg.edit')->middleware('role:Operator SPPG');
     Route::put('/sppg/update', [SppgController::class, 'update'])->name('sppg.update')->middleware('role:Operator SPPG');
 
+    // sppg sekolahs management - for Operator SPPG
+    Route::get('/sppg/sekolahs', [SppgController::class, 'sekolahs'])->name('sppg.sekolahs')->middleware('role:Operator SPPG');
+    Route::post('/sppg/sekolahs/attach', [SppgController::class, 'attachSekolah'])->name('sppg.sekolahs.attach')->middleware('role:Operator SPPG');
+    Route::put('/sppg/sekolahs/{sekolah}/update', [SppgController::class, 'updateSekolah'])->name('sppg.sekolahs.update')->middleware('role:Operator SPPG');
+    Route::delete('/sppg/sekolahs/{sekolah}/detach', [SppgController::class, 'detachSekolah'])->name('sppg.sekolahs.detach')->middleware('role:Operator SPPG');
+
     // aplication_setting
     Route::get('/appsets/edit', [ApplicationSetController::class, 'edit'])->name('appsets.edit');
     Route::put('/appsets/update-first', [ApplicationSetController::class, 'update'])->name('appsets.update');
