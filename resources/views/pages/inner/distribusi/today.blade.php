@@ -103,6 +103,17 @@
                             </div>
                         @endif
 
+                        @if($distribusiToday->dokumentasi)
+                            <div class="alert alert-light-success">
+                                <strong><i class="bi bi-file-earmark-text me-2"></i>Dokumentasi:</strong>
+                                <div class="mt-2">
+                                    <a href="{{ Storage::url($distribusiToday->dokumentasi) }}" target="_blank" class="btn btn-sm btn-info">
+                                        <i class="bi bi-download me-1"></i> Lihat/Download Dokumentasi
+                                    </a>
+                                </div>
+                            </div>
+                        @endif
+
                         <hr>
 
                         <!-- Menu Hari Ini -->
@@ -150,17 +161,22 @@
                                         </h5>
                                         <button type="button" class="btn-close btn-close-white" data-bs-dismiss="modal"></button>
                                     </div>
-                                    <form action="{{ route('distribusi.konfirmasi', $distribusiToday) }}" method="POST">
+                                    <form action="{{ route('distribusi.konfirmasi', $distribusiToday) }}" method="POST" enctype="multipart/form-data">
                                         @csrf
                                         <div class="modal-body">
                                             <div class="alert alert-light-info">
                                                 <strong>Tanggal:</strong> {{ $today->isoFormat('dddd, D MMMM YYYY') }}
                                             </div>
                                             <p class="mb-3">Apakah Anda yakin menu hari ini telah diterima dengan baik?</p>
-                                            <div class="form-group">
+                                            <div class="form-group mb-3">
                                                 <label for="keterangan" class="form-label">Keterangan (Opsional)</label>
                                                 <textarea name="keterangan" id="keterangan" class="form-control" rows="4" placeholder="Tambahkan catatan jika ada kondisi khusus, kekurangan, atau informasi lainnya..."></textarea>
                                                 <small class="text-muted">Contoh: "Menu diterima dalam kondisi baik", "Jumlah kurang 5 porsi", dll.</small>
+                                            </div>
+                                            <div class="form-group">
+                                                <label for="dokumentasi" class="form-label">Upload Dokumentasi (Opsional)</label>
+                                                <input type="file" name="dokumentasi" id="dokumentasi" class="form-control" accept=".jpg,.jpeg,.png,.pdf">
+                                                <small class="text-muted">Format: JPG, PNG, PDF (Max: 2MB). Upload foto bukti penerimaan menu.</small>
                                             </div>
                                         </div>
                                         <div class="modal-footer">

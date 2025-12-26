@@ -16,7 +16,7 @@ class JadwalMenuController extends Controller
     {
         $user = Auth::user();
 
-        if ($user->hasRole('Admin')) {
+        if ($user->hasRole('Admin|Operator BGN')) {
             $jadwalMenus = JadwalMenu::with(['sppg', 'details.menu', 'details.kategoriMenu'])->paginate(10);
             $sppgs = Sppg::all();
         } else if ($user->hasRole('Operator SPPG')) {
@@ -292,5 +292,48 @@ class JadwalMenuController extends Controller
         $pdf->setPaper('a4', 'landscape');
 
         return $pdf->download('jadwal-menu-' . now()->format('Y-m-d') . '.pdf');
+    }
+
+    public function indexSekolah()
+    {
+        $user = Auth::user();
+
+        if (!$user->hasRole('Operator Sekolah')) {
+            abort(403);
+        }
+
+        $sekolah = $user->sekolah;
+
+        if (!$sekolah || !$sekolah->sppg_id) {
+            return view('pages.inner.jadwal-menus.sekolah-index', [
+                'sekolah' => $sekolah,
+                'jadwalData' => []
+            ]);
+        }
+
+        // Get all jadwal for this sekolah's SPPG
+        $jadwalMenus = JadwalMenu::where('sppg_id', $sekolah->sppg_id)
+            ->with(['details.menu', 'details.kategoriMenu'])
+            ->orderBy('hari')
+            ->get();
+
+        // Group by periode
+        $jadwalData = [];
+        if ($jadwalMenus->isNotEmpty()) {
+            $grouped = $jadwalMenus->groupBy(function ($item) {
+                return ($item->tanggal_mulai?->format('Y-m-d') ?? 'null') . '|' . ($item->tanggal_selesai?->format('Y-m-d') ?? 'null');
+            });
+
+            foreach ($grouped as $key => $periodeJadwals) {
+                $parts = explode('|', $key);
+                $jadwalData[] = [
+                    'tanggal_mulai' => $parts[0] !== 'null' ? \Carbon\Carbon::parse($parts[0]) : null,
+                    'tanggal_selesai' => $parts[1] !== 'null' ? \Carbon\Carbon::parse($parts[1]) : null,
+                    'jadwals' => $periodeJadwals->keyBy('hari')
+                ];
+            }
+        }
+
+        return view('pages.inner.jadwal-menus.sekolah-index', compact('sekolah', 'jadwalData'));
     }
 }

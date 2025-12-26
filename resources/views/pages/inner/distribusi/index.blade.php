@@ -59,6 +59,7 @@
                                     <th>Menu</th>
                                     <th>Status</th>
                                     <th>Keterangan</th>
+                                    <th>Dokumentasi</th>
                                     <th>Aksi</th>
                                 </tr>
                             </thead>
@@ -100,6 +101,15 @@
                                             @endif
                                         </td>
                                         <td>
+                                            @if($distribusi->dokumentasi)
+                                                <a href="{{ Storage::url($distribusi->dokumentasi) }}" target="_blank" class="btn btn-sm btn-info">
+                                                    <i class="bi bi-file-earmark-text me-1"></i> Lihat
+                                                </a>
+                                            @else
+                                                <span class="text-muted">-</span>
+                                            @endif
+                                        </td>
+                                        <td>
                                             @if($distribusi->status_pengantaran === 'belum_diterima')
                                                 <button type="button" class="btn btn-sm btn-success" data-bs-toggle="modal" data-bs-target="#konfirmasiModal{{ $distribusi->id }}">
                                                     <i class="bi bi-check-circle me-1"></i> Konfirmasi
@@ -113,13 +123,18 @@
                                                                 <h5 class="modal-title">Konfirmasi Penerimaan</h5>
                                                                 <button type="button" class="btn-close" data-bs-dismiss="modal"></button>
                                                             </div>
-                                                            <form action="{{ route('distribusi.konfirmasi', $distribusi) }}" method="POST">
+                                                            <form action="{{ route('distribusi.konfirmasi', $distribusi) }}" method="POST" enctype="multipart/form-data">
                                                                 @csrf
                                                                 <div class="modal-body">
                                                                     <p>Konfirmasi penerimaan menu untuk tanggal <strong>{{ $distribusi->tanggal_distribusi->format('d/m/Y') }}</strong>?</p>
-                                                                    <div class="form-group">
+                                                                    <div class="form-group mb-3">
                                                                         <label for="keterangan{{ $distribusi->id }}">Keterangan (Opsional)</label>
                                                                         <textarea name="keterangan" id="keterangan{{ $distribusi->id }}" class="form-control" rows="3" placeholder="Tambahkan keterangan jika diperlukan"></textarea>
+                                                                    </div>
+                                                                    <div class="form-group">
+                                                                        <label for="dokumentasi{{ $distribusi->id }}">Upload Dokumentasi (Opsional)</label>
+                                                                        <input type="file" name="dokumentasi" id="dokumentasi{{ $distribusi->id }}" class="form-control" accept=".jpg,.jpeg,.png,.pdf">
+                                                                        <small class="text-muted">Format: JPG, PNG, PDF (Max: 2MB)</small>
                                                                     </div>
                                                                 </div>
                                                                 <div class="modal-footer">
@@ -142,7 +157,7 @@
                                     </tr>
                                 @empty
                                     <tr>
-                                        <td colspan="7" class="text-center">Tidak ada data distribusi.</td>
+                                        <td colspan="8" class="text-center">Tidak ada data distribusi.</td>
                                     </tr>
                                 @endforelse
                             </tbody>

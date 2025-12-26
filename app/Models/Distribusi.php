@@ -13,6 +13,7 @@ class Distribusi extends Model
         'tanggal_distribusi',
         'status_pengantaran',
         'keterangan',
+        'dokumentasi',
         'tanggal_konfirmasi',
     ];
 

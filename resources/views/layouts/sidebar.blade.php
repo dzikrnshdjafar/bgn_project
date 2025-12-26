@@ -87,6 +87,57 @@
                         <span>Setting</span>
                     </a>
                 </li>                
+                @endhasrole
+
+                @hasrole('Operator BGN')
+                <li class="sidebar-item {{ request()->routeIs('dashboard') ? 'active' : '' }}">
+                    <a href="{{ route('dashboard') }}" class='sidebar-link'>
+                        <i class="bi bi-grid-fill"></i>
+                        <span>Dashboard</span>
+                    </a>
+                </li>
+                
+                <li class="sidebar-item {{ request()->routeIs('users.*') ? 'active' : '' }}">
+                    <a href="{{ route('users.index') }}" class='sidebar-link'>
+                        <i class="fas fa-users"></i>
+                        <span>Users</span>
+                    </a>
+                </li>
+
+                <li class="sidebar-item {{ request()->routeIs('items.*') ? 'active' : '' }}">
+                    <a href="{{ route('items.index') }}" class='sidebar-link'>
+                        <i class="fas fa-boxes"></i>
+                        <span>Item</span>
+                    </a>
+                </li>
+                
+                <li class="sidebar-item {{ request()->routeIs('kategori-menus.*') ? 'active' : '' }}">
+                    <a href="{{ route('kategori-menus.index') }}" class='sidebar-link'>
+                        <i class="fas fa-layer-group"></i>
+                        <span>Kategori Menu</span>
+                    </a>
+                </li>
+                
+                <li class="sidebar-item {{ request()->routeIs('menus.*') ? 'active' : '' }}">
+                    <a href="{{ route('menus.index') }}" class='sidebar-link'>
+                        <i class="fas fa-clipboard-list"></i>
+                        <span>Menu</span>
+                    </a>
+                </li>
+
+                <li class="sidebar-item {{ request()->routeIs('jadwal-menus.*') ? 'active' : '' }}">
+                    <a href="{{ route('jadwal-menus.index') }}" class='sidebar-link'>
+                        <i class="fas fa-calendar"></i>
+                        <span>Jadwal</span>
+                    </a>
+                </li>
+
+                <li class="sidebar-item {{ request()->routeIs('appsets.edit') ? 'active' : '' }}">
+                    <a href="{{ route('appsets.edit') }}" class='sidebar-link'>
+                        <i class="fas fa-cogs"></i>
+                        <span>Setting</span>
+                    </a>
+                </li>                
                 
                 @endhasrole
 
@@ -107,22 +158,28 @@
                 @endhasrole
 
                 @hasrole('Operator Sekolah')
-                <li class="sidebar-item {{ request()->routeIs('sekolah.*') ? 'active' : '' }}">
-                    <a href="{{ route('sekolah.edit') }}" class='sidebar-link'>
-                        <i class="fas fa-school"></i>
-                        <span>Data Sekolah</span>
-                    </a>
-                </li>
                 <li class="sidebar-item {{ request()->routeIs('distribusi.today') ? 'active' : '' }}">
                     <a href="{{ route('distribusi.today') }}" class='sidebar-link'>
                         <i class="fas fa-truck"></i>
                         <span>Distribusi Hari Ini</span>
                     </a>
                 </li>
+                <li class="sidebar-item {{ request()->routeIs('jadwal-menus.sekolah') ? 'active' : '' }}">
+                    <a href="{{ route('jadwal-menus.sekolah') }}" class='sidebar-link'>
+                        <i class="fas fa-calendar"></i>
+                        <span>Jadwal</span>
+                    </a>
+                </li>
                 <li class="sidebar-item {{ request()->routeIs('distribusi.index') ? 'active' : '' }}">
                     <a href="{{ route('distribusi.index') }}" class='sidebar-link'>
                         <i class="fas fa-calendar-day"></i>
                         <span>Riwayat Distribusi</span>
+                    </a>
+                </li>
+                <li class="sidebar-item {{ request()->routeIs('sekolah.*') ? 'active' : '' }}">
+                    <a href="{{ route('sekolah.edit') }}" class='sidebar-link'>
+                        <i class="fas fa-school"></i>
+                        <span>Data Sekolah</span>
                     </a>
                 </li>
                 @endhasrole

@@ -196,14 +196,14 @@ class DistribusiController extends Controller
     {
         $user = Auth::user();
 
-        if (!$user->hasRole('Admin') && !$user->hasRole('Operator SPPG')) {
+        if (!$user->hasRole('Admin|Operator BGN|Operator SPPG')) {
             abort(403);
         }
 
         // Operator SPPG can only generate for their own SPPG
-        if ($user->hasRole('Operator SPPG') && $user->sppg_id != $sppgId) {
-            abort(403);
-        }
+        // if ($user->hasRole('Operator SPPG') && $user->sppg_id != $sppgId) {
+        //     abort(403);
+        // }
 
         $generated = 0;
         $sekolahs = Sekolah::where('sppg_id', $sppgId)->get();
@@ -273,7 +273,7 @@ class DistribusiController extends Controller
     {
         $user = Auth::user();
 
-        if (!$user->hasRole('Admin') && !$user->hasRole('Operator SPPG')) {
+        if (!$user->hasRole('Admin|Operator SPPG')) {
             abort(403);
         }
 

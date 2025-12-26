@@ -24,6 +24,9 @@
                         <x-nav-link :href="route('sekolah.edit')" :active="request()->routeIs('sekolah.edit')">
                             {{ __('Data Sekolah') }}
                         </x-nav-link>
+                        <x-nav-link :href="route('jadwal-menus.sekolah')" :active="request()->routeIs('jadwal-menus.sekolah')">
+                            {{ __('Jadwal Menu') }}
+                        </x-nav-link>
                         <x-nav-link :href="route('distribusi.today')" :active="request()->routeIs('distribusi.today')">
                             {{ __('Distribusi Hari Ini') }}
                         </x-nav-link>
@@ -99,6 +102,15 @@
             @hasrole('Operator Sekolah')
                 <x-responsive-nav-link :href="route('sekolah.edit')" :active="request()->routeIs('sekolah.edit')">
                     {{ __('Data Sekolah') }}
+                </x-responsive-nav-link>
+                <x-responsive-nav-link :href="route('jadwal-menus.sekolah')" :active="request()->routeIs('jadwal-menus.sekolah')">
+                    {{ __('Jadwal Menu') }}
+                </x-responsive-nav-link>
+                <x-responsive-nav-link :href="route('distribusi.today')" :active="request()->routeIs('distribusi.today')">
+                    {{ __('Distribusi Hari Ini') }}
+                </x-responsive-nav-link>
+                <x-responsive-nav-link :href="route('distribusi.index')" :active="request()->routeIs('distribusi.index')">
+                    {{ __('Riwayat Distribusi') }}
                 </x-responsive-nav-link>
             @endhasrole
             @hasrole('Operator SPPG')

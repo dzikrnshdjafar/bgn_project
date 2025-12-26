@@ -23,7 +23,7 @@ Route::middleware('auth')->group(function () {
     Route::resource('items', ItemController::class)->middleware('role:Admin');
 
     // users
-    Route::resource('users', App\Http\Controllers\UserController::class)->middleware('role:Admin|Operator BGN');
+    Route::resource('users', App\Http\Controllers\UserController::class)->middleware('role:Admin');
 
     // kategori menus
     Route::resource('kategori-menus', KategoriMenuController::class)->middleware('role:Admin|Operator BGN|Operator SPPG');
@@ -32,8 +32,11 @@ Route::middleware('auth')->group(function () {
     Route::resource('menus', MenuController::class)->middleware('role:Admin|Operator BGN|Operator SPPG');
 
     // jadwal menus
-    Route::resource('jadwal-menus', JadwalMenuController::class)->middleware('role:Admin|Operator SPPG');
-    Route::get('/jadwal-menus-export-pdf', [JadwalMenuController::class, 'exportPdf'])->name('jadwal-menus.export-pdf')->middleware('role:Admin|Operator SPPG');
+    Route::resource('jadwal-menus', JadwalMenuController::class)->middleware('role:Admin|Operator BGN|Operator SPPG');
+    Route::get('/jadwal-menus-export-pdf', [JadwalMenuController::class, 'exportPdf'])->name('jadwal-menus.export-pdf')->middleware('role:Admin|Operator BGN|Operator SPPG');
+
+    // jadwal menus - for Operator Sekolah (view only)
+    Route::get('/jadwal-sekolah', [JadwalMenuController::class, 'indexSekolah'])->name('jadwal-menus.sekolah')->middleware('role:Operator Sekolah');
 
     // sekolah - for Operator Sekolah
     Route::get('/sekolah/edit', [SekolahController::class, 'edit'])->name('sekolah.edit')->middleware('role:Operator Sekolah');
@@ -50,9 +53,9 @@ Route::middleware('auth')->group(function () {
     Route::post('/distribusi/{distribusi}/batal-konfirmasi', [DistribusiController::class, 'batalKonfirmasi'])->name('distribusi.batal-konfirmasi')->middleware('role:Operator Sekolah');
 
     // Generate distribusi - for Admin
-    Route::post('/distribusi/generate', [DistribusiController::class, 'generateDistribusi'])->name('distribusi.generate')->middleware('role:Admin');
-    Route::post('/distribusi/generate/{sppg}', [DistribusiController::class, 'generateBySppg'])->name('distribusi.generate-by-sppg')->middleware('role:Admin|Operator SPPG');
-    Route::delete('/distribusi/cancel/{sppg}', [DistribusiController::class, 'cancelBySppg'])->name('distribusi.cancel-by-sppg')->middleware('role:Admin|Operator SPPG');
+    Route::post('/distribusi/generate', [DistribusiController::class, 'generateDistribusi'])->name('distribusi.generate')->middleware('role:Admin|Operator BGN');
+    Route::post('/distribusi/generate/{sppg}', [DistribusiController::class, 'generateBySppg'])->name('distribusi.generate-by-sppg')->middleware('role:Admin|Operator BGN|Operator SPPG');
+    Route::delete('/distribusi/cancel/{sppg}', [DistribusiController::class, 'cancelBySppg'])->name('distribusi.cancel-by-sppg')->middleware('role:Admin|Operator BGN|Operator SPPG');
 
     // sppg sekolahs management - for Operator SPPG
     Route::get('/sppg/sekolahs', [SppgController::class, 'sekolahs'])->name('sppg.sekolahs')->middleware('role:Operator SPPG');

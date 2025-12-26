@@ -24,11 +24,11 @@
                         <a href="{{ route('jadwal-menus.export-pdf') }}" class="btn btn-success" target="_blank">
                             <i class="bi bi-file-earmark-pdf me-1"></i> Ekspor PDF
                         </a>
-                        @if(auth()->user()->hasRole('Admin'))
+                        @if(auth()->user()->hasRole('Admin|Operator BGN'))
                             <form action="{{ route('distribusi.generate') }}" method="POST" style="display:inline;">
                                 @csrf
                                 <button type="submit" class="btn btn-info" onclick="return confirm('Generate data distribusi untuk semua sekolah berdasarkan jadwal menu yang aktif?')">
-                                    <i class="bi bi-arrow-repeat me-1"></i> Generate Distribusi
+                                    <i class="bi bi-arrow-repeat me-1"></i> Generate Semua Distribusi
                                 </button>
                             </form>
                         @endif
@@ -37,7 +37,7 @@
                 <x-slot name="tableHeader">
                     <tr>
                         <th>No</th>
-                        @if(auth()->user()->hasRole('Admin'))
+                        @if(auth()->user()->hasRole('Admin|Operator BGN'))
                             <th>SPPG</th>
                         @endif
                         <th>Periode</th>
@@ -58,7 +58,7 @@
                         @endphp
                         <tr>
                             <td>{{ $loop->iteration }}</td>
-                            @if(auth()->user()->hasRole('Admin'))
+                            @if(auth()->user()->hasRole('Admin|Operator BGN'))
                                 <td>{{ $firstJadwal->sppg->nama_dapur }}</td>
                             @endif
                             <td>
@@ -149,7 +149,7 @@
                         </tr>
                     @empty
                         <tr>
-                            <td colspan="{{ auth()->user()->hasRole('Admin') ? 5 : 4 }}" class="text-center">Tidak ada data jadwal menu.</td>
+                            <td colspan="{{ auth()->user()->hasRole('Admin|Operator BGN') ? 5 : 4 }}" class="text-center">Tidak ada data jadwal menu.</td>
                         </tr>
                     @endforelse
                 </x-slot>
