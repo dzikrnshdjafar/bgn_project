@@ -24,4 +24,9 @@ class Sppg extends Model
     {
         return $this->hasMany(Sekolah::class);
     }
+
+    public function distribusis()
+    {
+        return $this->hasMany(Distribusi::class);
+    }
 }

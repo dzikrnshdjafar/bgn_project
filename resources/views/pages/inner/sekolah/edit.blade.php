@@ -35,6 +35,13 @@
                 <textarea name="alamat_sekolah" class="form-control" id="alamat_sekolah" rows="3" required>{{ old('alamat_sekolah', $sekolah->alamat_sekolah ?? '') }}</textarea>
             </div>
 
+            <div class="form-group">
+                <label for="jumlah_siswa">Jumlah Siswa</label>
+                <input type="number" name="jumlah_siswa" class="form-control" id="jumlah_siswa" 
+                       value="{{ old('jumlah_siswa', $sekolah->jumlah_siswa ?? 0) }}" min="0" required>
+                <small class="form-text text-muted">Masukkan total jumlah siswa di sekolah</small>
+            </div>
+
             @if($sekolah->exists && $sekolah->sppg)
                 <div class="alert alert-info mt-3">
                     <h6 class="alert-heading"><i class="bi bi-building"></i> Informasi SPPG</h6>

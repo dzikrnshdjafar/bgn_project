@@ -36,14 +36,17 @@ class SekolahSeeder extends Seeder
             [
                 'nama_sekolah' => 'SDN 01 Jakarta Pusat',
                 'alamat_sekolah' => 'Jl. Merdeka No. 10, Jakarta Pusat',
+                'jumlah_siswa' => 100,
             ],
             [
                 'nama_sekolah' => 'SDN 02 Jakarta Pusat',
                 'alamat_sekolah' => 'Jl. Thamrin No. 15, Jakarta Pusat',
+                'jumlah_siswa' => 200,
             ],
             [
                 'nama_sekolah' => 'SDN 03 Jakarta Utara',
                 'alamat_sekolah' => 'Jl. Kemerdekaan No. 25, Jakarta Utara',
+                'jumlah_siswa' => 300,
             ],
         ];
 
@@ -59,6 +62,7 @@ class SekolahSeeder extends Seeder
                 'user_id' => $user->id,
                 'nama_sekolah' => $sekolahs[$index]['nama_sekolah'],
                 'alamat_sekolah' => $sekolahs[$index]['alamat_sekolah'],
+                'jumlah_siswa' => $sekolahs[$index]['jumlah_siswa'],
             ]);
         }
     }

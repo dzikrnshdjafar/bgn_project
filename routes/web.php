@@ -11,12 +11,11 @@ use App\Http\Controllers\KategoriMenuController;
 use App\Http\Controllers\MenuController;
 use App\Http\Controllers\JadwalMenuController;
 use App\Http\Controllers\DistribusiController;
+use App\Http\Controllers\DashboardController;
 
 Route::get('/', [OuterController::class, 'index']);
 
-Route::get('/dashboard', function () {
-    return view('dashboard');
-})->middleware(['auth', 'verified'])->name('dashboard');
+Route::get('/dashboard', [DashboardController::class, 'index'])->middleware(['auth', 'verified'])->name('dashboard');
 
 Route::middleware('auth')->group(function () {
     // items

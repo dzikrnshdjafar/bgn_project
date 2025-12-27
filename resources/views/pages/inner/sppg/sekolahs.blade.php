@@ -94,6 +94,7 @@
                                         <th>No</th>
                                         <th>Nama Sekolah</th>
                                         <th>Alamat</th>
+                                        <th>Jumlah Siswa</th>
                                         <th>Aksi</th>
                                     </tr>
                                 </thead>
@@ -103,6 +104,9 @@
                                             <td>{{ $sekolahs->firstItem() + $index }}</td>
                                             <td>{{ $sekolah->nama_sekolah }}</td>
                                             <td>{{ $sekolah->alamat_sekolah }}</td>
+                                            <td class="text-center">
+                                                <span class="badge bg-primary">{{ number_format($sekolah->jumlah_siswa, 0, ',', '.') }} siswa</span>
+                                            </td>
                                             <td>
                                                 <form action="{{ auth()->user()->hasRole('Admin') ? route('admin.sppgs.sekolahs.detach', [$sppg->id, $sekolah->id]) : route('sppg.sekolahs.detach', $sekolah->id) }}" method="POST" 
                                                       onsubmit="return confirm('Apakah Anda yakin ingin menghapus sekolah ini dari zona pengantaran?')">

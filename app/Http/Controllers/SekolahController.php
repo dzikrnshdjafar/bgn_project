@@ -41,6 +41,7 @@ class SekolahController extends Controller
         $request->validate([
             'nama_sekolah' => ['required', 'string', 'max:255'],
             'alamat_sekolah' => ['required', 'string', 'max:255'],
+            'jumlah_siswa' => ['required', 'integer', 'min:0'],
         ]);
 
         // Update or create sekolah data
@@ -49,6 +50,7 @@ class SekolahController extends Controller
             [
                 'nama_sekolah' => $request->nama_sekolah,
                 'alamat_sekolah' => $request->alamat_sekolah,
+                'jumlah_siswa' => $request->jumlah_siswa,
             ]
         );
 

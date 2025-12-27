@@ -19,6 +19,7 @@ return new class extends Migration
             $table->date('tanggal_distribusi');
             $table->enum('status_pengantaran', ['belum_diterima', 'sudah_diterima'])->default('belum_diterima');
             $table->text('keterangan')->nullable();
+            $table->string('dokumentasi')->nullable();
             $table->timestamp('tanggal_konfirmasi')->nullable();
             $table->timestamps();
 

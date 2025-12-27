@@ -17,6 +17,7 @@ return new class extends Migration
             $table->foreignId('sppg_id')->nullable()->constrained('sppgs')->onDelete('set null');
             $table->string('nama_sekolah');
             $table->string('alamat_sekolah');
+            $table->integer('jumlah_siswa')->default(0);
             $table->timestamps();
         });
     }

@@ -46,10 +46,10 @@
                     </a>
                 </li>
                 
-                <li class="sidebar-item {{ request()->routeIs('users.*') ? 'active' : '' }}">
-                    <a href="{{ route('users.index') }}" class='sidebar-link'>
-                        <i class="fas fa-users"></i>
-                        <span>Users</span>
+                <li class="sidebar-item {{ request()->routeIs('admin.sppgs.*') ? 'active' : '' }}">
+                    <a href="{{ route('admin.sppgs.index') }}" class='sidebar-link'>
+                        <i class="fas fa-utensils"></i>
+                        <span>SPPG</span>
                     </a>
                 </li>
 
@@ -80,13 +80,7 @@
                         <span>Jadwal</span>
                     </a>
                 </li>
-
-                <li class="sidebar-item {{ request()->routeIs('appsets.edit') ? 'active' : '' }}">
-                    <a href="{{ route('appsets.edit') }}" class='sidebar-link'>
-                        <i class="fas fa-cogs"></i>
-                        <span>Setting</span>
-                    </a>
-                </li>                
+            
                 @endhasrole
 
                 @hasrole('Operator BGN')
@@ -94,13 +88,6 @@
                     <a href="{{ route('dashboard') }}" class='sidebar-link'>
                         <i class="bi bi-grid-fill"></i>
                         <span>Dashboard</span>
-                    </a>
-                </li>
-                
-                <li class="sidebar-item {{ request()->routeIs('users.*') ? 'active' : '' }}">
-                    <a href="{{ route('users.index') }}" class='sidebar-link'>
-                        <i class="fas fa-users"></i>
-                        <span>Users</span>
                     </a>
                 </li>
 
@@ -204,6 +191,25 @@
                     </a>
                 </li>
                 @endhasanyrole --}}
+
+                @hasanyrole('Admin|Operator BGN')
+                <li class="sidebar-title">Config</li>
+                
+                <li class="sidebar-item {{ request()->routeIs('users.*') ? 'active' : '' }}">
+                    <a href="{{ route('users.index') }}" class='sidebar-link'>
+                        <i class="fas fa-users"></i>
+                        <span>Pengguna</span>
+                    </a>
+                </li>
+                
+                <li class="sidebar-item {{ request()->routeIs('appsets.edit') ? 'active' : '' }}">
+                    <a href="{{ route('appsets.edit') }}" class='sidebar-link'>
+                        <i class="fas fa-cogs"></i>
+                        <span>Pengaturan Sistem</span>
+                    </a>
+                </li>   
+                
+                @endhasanyrole
 
                 <li class="sidebar-title">Profile</li>
 
